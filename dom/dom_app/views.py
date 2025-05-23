@@ -7,9 +7,18 @@ from .models import Profile, Post
 from .serializers import UserSerializer, ProfileSerializer, PostSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
+#search for users
+class SearchUserView(generics.ListAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        return Profile.objects.filter(username__icontains=query)
+        
 
 #get users list
-class UserListView(generics.ListAPIView):
+class ProfileListView(generics.ListAPIView):
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
     queryset = Profile.objects.all()
