@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+body {
+  font-family: "General", sans-serif;
+  width: 100dvw;
+  background-color: var(--color-white-50);
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+@theme {
+
+   --color-blue-50: #3FA9DA;     /* Dimmed blue highlight */
+  --color-blue-100: #1A5F7A;    /* Cold, rich steel blue */
+  --color-blue-500: #050D18;    /* Almost-black navy — main base color */
+
+  /* 🔺 Red (now your alert color instead of yellow) */
+  --color-red-100: #800000;  /* Deep muted crimson (Robin callback / alerts) */
+
+  /* ✅ Dark green for status */
+  --color-green-50: #3E6F59;    /* Forest green with a cold tint */
+
+  /* ⚫ Charcoal neutrals */
+  --color-gray-50: #1A1C21;     /* Cards, surfaces */
+  --color-white-50: #C9CED3;    /* Low-glow light text on dark background */
+
+   
+}
+
+.custom-gradient {
+    background: linear-gradient(135deg, #000000, #0B1E32)
+}
+
+.custom-dark-gradient {
+   background: linear-gradient(135deg, #000000, #00020a);
+
+
+}
