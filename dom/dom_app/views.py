@@ -7,6 +7,16 @@ from .models import Profile, Post
 from .serializers import UserSerializer, ProfileSerializer, PostSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
+
+#people user follow
+class FollowListView(generics.ListAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        return Profile.objects.get(user = user).follows.all()
+    
 #search for users
 class SearchUserView(generics.ListAPIView):
     serializer_class = ProfileSerializer

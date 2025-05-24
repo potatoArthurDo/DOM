@@ -8,5 +8,6 @@ urlpatterns = [
     path('current_user/', views.GetCurrentUser.as_view(), name="current_user"),
     path('profiles/', views.ProfileListView.as_view(), name="profile_list"),
     path('search-users/', views.SearchUserView.as_view(), name="search-user"),
+    path('follows/', views.FollowListView.as_view(), name="follows")
 
 ]

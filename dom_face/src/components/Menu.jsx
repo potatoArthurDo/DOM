@@ -17,7 +17,7 @@ const Menu = () => {
             <MenuItem name="home" icon="assets/images/home.png" />
             <MenuItem name="profile" icon="assets/images/human.png" />
             <MenuItem name="search" icon="assets/images/search.png" />
-            <MenuItem name="friends" icon="assets/images/friends.png" />
+            <MenuItem name="follows" icon="assets/images/friends.png" />
           </div>
           <div className="relative w-auto h-auto my-4 mx-auto">
             <a

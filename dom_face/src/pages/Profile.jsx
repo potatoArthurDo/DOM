@@ -68,6 +68,7 @@ const Profile = () => {
         <Menu />
         <div className=" w-[75vw] lg:w-[85vw]">
           <div className="custom-dark-gradient  min-h-[100vh] p-4 flex flex-col items-center justify-start ml-2">
+             <h1 className="text-white">Profile</h1>
             <Post currentUser={currentUser} createPost={createPost} />
             {posts.map((post) => (
               <Domed
