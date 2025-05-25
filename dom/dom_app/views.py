@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Profile, Post
@@ -26,7 +26,29 @@ class SearchUserView(generics.ListAPIView):
         query = self.request.GET.get('q', '')
         return Profile.objects.filter(username__icontains=query)
         
+#get user's profile 
+class UserProfileDetailView(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get(self, request, pk):
+        try:
+            profile = Profile.objects.get(pk=pk)
+            serializer = self.get_serializer(profile)
+            return Response(serializer.data)
+        except Profile.DoesNotExist:
+            return Response({'error': 'Profile not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+#get user's post 
+class ProfilePostView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+        return Post.objects.filter(user = profile.user).order_by('-created_at')
+    
 #get users list
 class ProfileListView(generics.ListAPIView):
     serializer_class = ProfileSerializer

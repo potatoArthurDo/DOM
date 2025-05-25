@@ -9,15 +9,15 @@ const Menu = () => {
           <div className="flex flex-col relative h-[80%] w-full items-center">
             <a href="/" className="h-1/8 w-auto mt-2">
               <img
-                src="assets/images/logo.png"
+                src="/assets/images/logo.png"
                 alt="logo"
                 className="h-full w-auto"
               />
             </a>
-            <MenuItem name="home" icon="assets/images/home.png" />
-            <MenuItem name="profile" icon="assets/images/human.png" />
-            <MenuItem name="search" icon="assets/images/search.png" />
-            <MenuItem name="follows" icon="assets/images/friends.png" />
+            <MenuItem name="home" icon="/assets/images/home.png" />
+            <MenuItem name="profile" icon="/assets/images/human.png" />
+            <MenuItem name="search" icon="/assets/images/search.png" />
+            <MenuItem name="follows" icon="/assets/images/friends.png" />
           </div>
           <div className="relative w-auto h-auto my-4 mx-auto">
             <a
@@ -25,7 +25,7 @@ const Menu = () => {
               className=" bg-white-50 w-[4rem] h-[4rem] rounded-[100%] flex justify-center items-center hover:bg-yellow-50"
             >
               <img
-                src="assets/images/setting.png"
+                src="/assets/images/setting.png"
                 alt="settings"
                 className="filter invert hue-rotate-90 w-[2.5rem] h-auto "
               />

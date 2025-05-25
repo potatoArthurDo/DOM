@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Post = ({ currentUser, createPost }) => {
   return (
@@ -6,13 +7,13 @@ const Post = ({ currentUser, createPost }) => {
       className="custom-gradient w-[95%] lg:w-[50%] h-[6rem] rounded-sm flex flex-row justify-between items-center p-3 border-2 border-blue-50"
       onSubmit={createPost}
     >
-      <a href="#" className="w-[10%] ml-4">
+      <Link to={`/profile/${currentUser.id}`} className="w-[10%] ml-4">
         <img
           src={currentUser.avatar}
           alt="avatar"
           className="rounded-full w-[5rem] h-[5rem] "
         />
-      </a>
+      </Link>
       <textarea
         className="bg-white w-[70%] h-[80%] rounded-md focus:outline-none"
         placeholder="'sup?"

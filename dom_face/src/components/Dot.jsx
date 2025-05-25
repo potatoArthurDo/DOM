@@ -7,7 +7,7 @@ const Dot = ({action, amount}) => {
         {amount}
       </button>
       <a href="#" >
-        <img src= {`assets/images/${action}.png`}alt="" className="w-[1.5rem] ml-1/2" />
+        <img src= {`/assets/images/${action}.png`}alt="" className="w-[1.5rem] ml-1/2" />
       </a>
     </>
   );

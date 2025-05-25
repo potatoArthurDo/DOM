@@ -1,18 +1,19 @@
 import React from "react";
 import Dot from "./Dot";
+import { Link } from "react-router-dom";
 
 const Domed = ({ post, key, deletePost, like, comment, share }) => {
   return (
     <div className="relative w-[95%] lg:w-[50%]  h-auto custom-gradient border-2 border-blue-50 flex flex-col justify-center items-center">
       <div className="w-full h-auto relative flex flex-row justify-between items-center mx-6 my-2">
         <div className="absolute left-0 top-0  w-[10%] h-[7rem] ml-7 m-2 ">
-          <a href="#">
+          <Link to={`/profile/${post.user.id}`}>
             <img
               src={post.profile.avatar}
               alt=""
-              className="rounded-full w-[5rem] h-[5rem]"
+              className="rounded-full w-[4rem] h-[4rem]"
             />
-          </a>
+          </Link>
           <h6 className="text-center text-white-50 text-xl font-bold">
             {post.profile.username}
           </h6>
@@ -21,7 +22,7 @@ const Domed = ({ post, key, deletePost, like, comment, share }) => {
           {post.body}
         </div>
         <button onClick={() => deletePost(post.id)} className="mx-5 cursor-pointer">
-            <img src="assets/images/delete.png" alt="" />
+            <img src="/assets/images/delete.png" alt="" />
         </button>
       </div>
       <div className="w-full relative flex flex-row justify-start space-x-2 items-center my-2  ml-[20%]">
