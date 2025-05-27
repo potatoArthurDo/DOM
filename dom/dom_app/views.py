@@ -8,6 +8,21 @@ from .serializers import UserSerializer, ProfileSerializer, PostSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
+class FollowToggleView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProfileSerializer
+    
+    def post(self, request, pk):
+        target_profile = Profile.objects.get(pk=pk)
+        user_profile = self.request.user.profile
+        
+        if target_profile in user_profile.follows.all():
+            user_profile.follows.remove(target_profile)
+            return Response({'message': 'Unfollowed'})
+        else:
+            user_profile.follows.add(target_profile)
+            return Response({'message': 'Followed'})
+        
 #people user follow
 class FollowListView(generics.ListAPIView):
     serializer_class = ProfileSerializer
@@ -34,7 +49,7 @@ class UserProfileDetailView(generics.RetrieveAPIView):
     def get(self, request, pk):
         try:
             profile = Profile.objects.get(pk=pk)
-            serializer = self.get_serializer(profile)
+            serializer = self.get_serializer(profile, context={'request': request})
             return Response(serializer.data)
         except Profile.DoesNotExist:
             return Response({'error': 'Profile not found'}, status=status.HTTP_404_NOT_FOUND)
