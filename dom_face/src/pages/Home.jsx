@@ -72,7 +72,7 @@ function Home() {
             <Domed
               
               
-              like="100"
+              like={post.total_likes}
               comment="50"
               share="2"
               post = {post}

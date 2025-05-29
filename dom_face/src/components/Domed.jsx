@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Dot from "./Dot";
 import { Link } from "react-router-dom";
+import api from "../api";
 
 const Domed = ({ post, key, deletePost, like, comment, share }) => {
+    const [liked, setLiked] = useState(post.liked_by_user);
+    const [ likes, setLikes] = useState(post.total_likes)
+
+    const handleLike = () => {
+        api.post(`posts/${post.id}/like/`).then((res) =>{
+            setLiked(res.data.liked)
+            setLikes(res.data.total_likes)
+        }).catch((err) => console.log(err))
+    }
   return (
     <div className="relative w-[95%] lg:w-[50%]  h-auto custom-gradient border-2 border-blue-50 flex flex-col justify-center items-center">
       <div className="w-full h-auto relative flex flex-row justify-between items-center mx-6 my-2">
@@ -26,7 +36,7 @@ const Domed = ({ post, key, deletePost, like, comment, share }) => {
         </button>
       </div>
       <div className="w-full relative flex flex-row justify-start space-x-2 items-center my-2  ml-[20%]">
-        <Dot action="like" amount={like} />
+        <Dot action="like" amount={likes} onClick = {handleLike} liked = {liked} />
         <Dot action="comment" amount={comment} />
         <Dot action="share" amount={share} />
       </div>

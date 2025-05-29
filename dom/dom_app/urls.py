@@ -13,5 +13,8 @@ urlpatterns = [
     path('follows/', views.FollowListView.as_view(), name="follows"),
     
     path('profile/<int:pk>/follow/', views.FollowToggleView.as_view(), name="follow_user"),
+    
+    #like and unlike
+    path('posts/<int:pk>/like/', views.LikeToggleView.as_view(), name="post_like"),
 
 ]

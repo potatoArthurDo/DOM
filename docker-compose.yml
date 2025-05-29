@@ -1,0 +1,21 @@
+services:
+  backend:
+    build:
+      context: ./dom
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./dom:/dom
+
+  frontend:
+    build:
+      context: ./dom_face
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./dom_face:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true

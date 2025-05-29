@@ -36,10 +36,16 @@ class Post(models.Model):
     body = models.CharField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
     
+    #like posts
+    likes = models.ManyToManyField(Profile, related_name= 'liked_posts', blank=True)
+    
     def __str__(self):
         return (
             f"{self.user} "
             f"({self.created_at:%Y-%m-%d %H:%M}): "
             f"{self.body}..."
         )
+        
+    def total_likes(self):
+        return self.likes.count()
 

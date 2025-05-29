@@ -11,7 +11,8 @@ const Profile = () => {
   const { id } = useParams();
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
-
+  
+ 
   useEffect(() => {
     getPosts();
     getCurrentUser();
@@ -78,7 +79,7 @@ const Profile = () => {
             {posts.map((post) => (
               <Domed
                 post={post}
-                like="100"
+                like={post.total_likes}
                 comment="50"
                 share="2"
                 key={post.id}

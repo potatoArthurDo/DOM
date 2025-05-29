@@ -6,8 +6,30 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Profile, Post
 from .serializers import UserSerializer, ProfileSerializer, PostSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import action
 
+#Like and unlike view
+class LikeToggleView(generics.GenericAPIView):
+    permission_classes = {IsAuthenticated}
+    serializer_class = PostSerializer
+    queryset = Post.objects.all().order_by('-created_at')
+    
 
+    def post(self, request, pk):
+        profile = Profile.objects.get(user = self.request.user)
+        post = Post.objects.get(pk=pk)
+        
+        if profile in post.likes.all():
+            post.likes.remove(profile)
+            liked = False
+        else:
+            post.likes.add(profile)
+            liked = True
+        return Response({
+            'liked': liked,
+            'total_likes': post.total_likes(),
+        }, status=status.HTTP_200_OK)
+        
 class FollowToggleView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ProfileSerializer
