@@ -34,6 +34,7 @@ post_save.connect(create_profile, sender=User)
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='posts')
     body = models.CharField(max_length=1000)
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     #like posts

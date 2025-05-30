@@ -16,5 +16,6 @@ urlpatterns = [
     
     #like and unlike
     path('posts/<int:pk>/like/', views.LikeToggleView.as_view(), name="post_like"),
+    
 
 ]

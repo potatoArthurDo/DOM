@@ -35,7 +35,7 @@ class PostSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Post
-        fields = ['id', 'user', 'body','profile','created_at', 'total_likes', "liked_by_user"]
+        fields = ['id', 'user', 'body','image','profile','created_at', 'total_likes', "liked_by_user"]
         extra_kwargs = {'user': {'read_only': True}}
     
     def get_liked_by_user(self,obj):

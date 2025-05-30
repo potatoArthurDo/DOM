@@ -21,7 +21,7 @@ const Domed = ({ post, key, deletePost, like, comment, share }) => {
             <img
               src={post.profile.avatar}
               alt=""
-              className="rounded-full w-[4rem] h-[4rem]"
+              className="rounded-full w-[4rem] h-[4rem] "
             />
           </Link>
           <h6 className="text-center text-white-50 text-xl font-bold">
@@ -30,6 +30,7 @@ const Domed = ({ post, key, deletePost, like, comment, share }) => {
         </div>
         <div className=" ml-[17%] bg-blue-500 text-white w-[75%] h-auto p-4 rounded-sm mt-[10%]">
           {post.body}
+          <img src={post.image} alt="" className="w-full h-auto mt-2" />
         </div>
         <button onClick={() => deletePost(post.id)} className="mx-5 cursor-pointer">
             <img src="/assets/images/delete.png" alt="" />

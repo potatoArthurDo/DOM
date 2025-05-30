@@ -34,11 +34,13 @@ function Home() {
       });
   };
 
-  const createPost = (e) => {
-    e.preventDefault();
-    const content = e.target.content.value;
+  const createPost = (formData) => {
     api
-      .post("/posts/", { body: content })
+      .post("/posts/", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        }
+      })
       .then((res) => {
         setPosts([res.data, ...posts]);
         e.target.reset();

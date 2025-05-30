@@ -8,6 +8,9 @@ from .serializers import UserSerializer, ProfileSerializer, PostSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
 
+
+
+        
 #Like and unlike view
 class LikeToggleView(generics.GenericAPIView):
     permission_classes = {IsAuthenticated}
@@ -80,6 +83,7 @@ class UserProfileDetailView(generics.RetrieveAPIView):
 class ProfilePostView(generics.ListAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
     
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -96,6 +100,7 @@ class ProfileListView(generics.ListAPIView):
 class UserPostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
     
     def get_queryset(self):
         user = self.request.user
@@ -111,6 +116,7 @@ class UserPostList(generics.ListCreateAPIView):
 class PostListCreate(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
     
     def get_queryset(self):
         user = self.request.user
