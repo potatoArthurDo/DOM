@@ -55,8 +55,8 @@ class PostSerializer(serializers.ModelSerializer):
 class CommentSerializers(serializers.ModelSerializer):
     username = serializers.CharField(source='profile.username', read_only=True)
     avatar = serializers.ImageField(source='profile.avatar', read_only=True)
-    
+    profile_id = serializers.CharField(source = 'profile.id', read_only = True)
     
     class Meta:
         model = Comment
-        fields = ['id', 'post', 'profile','username', 'avatar', 'content', 'created_at']
+        fields = ['id', 'profile_id','post', 'profile','username', 'avatar', 'content', 'created_at']

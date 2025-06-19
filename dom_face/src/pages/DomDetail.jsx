@@ -3,10 +3,8 @@ import api from "../api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Menu from "../components/Menu";
-import Post from "../components/Post";
+import Comment from "../components/Comment";
 import Domed from "../components/Domed";
-import { Link } from "react-router-dom";
-import Dot from "../components/Dot";
 const DomDetail = () => {
   const { id } = useParams();
 
@@ -31,7 +29,7 @@ const DomDetail = () => {
       .get(`posts/${id}/`)
       .then((res) => {
         setPost(res.data);
-        console.log("Post fetched:", res.data);
+        // console.log("Post fetched:", res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -42,8 +40,8 @@ const DomDetail = () => {
     api
       .get(`posts/${id}/comments/`)
       .then((res) => {
-        setComments(res.data);
-        console.log(comments);
+        setComments(res.data, ...comments);
+        // console.log("Here are comments");
       })
       .catch((err) => {
         console.log(err);
@@ -67,6 +65,11 @@ const DomDetail = () => {
           ) : (
             <p className="text-white">Loading...</p>
           )}
+
+          {comments.map((comment) => (
+            <Comment comment= {comment} />
+          ))}
+          
         </div>
       </div>
     </div>
