@@ -72,11 +72,6 @@ function Home() {
           createPost={createPost} />
           {posts.map((post) => (
             <Domed
-              
-              
-              like={post.total_likes}
-              comment="50"
-              share="2"
               post = {post}
               deletePost={deletePost}
             />

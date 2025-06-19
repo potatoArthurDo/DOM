@@ -3,13 +3,26 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Profile, Post
-from .serializers import UserSerializer, ProfileSerializer, PostSerializer
+from .models import Profile, Post, Comment
+from .serializers import UserSerializer, ProfileSerializer, PostSerializer, CommentSerializers
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
 
 
 
+#comment view
+class CommentListCreateView(generics.ListCreateAPIView):
+    serializer_class = CommentSerializers
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        post_id = self.kwargs['post_id']
+        return Comment.objects.filter(post__id = post_id).order_by('-created_at')
+    
+    def perform_create(self, serializer):
+        post_id = self.kwargs['post_id']
+        profile = self.request.user.profile
+        serializer.save(profile=profile, post_id = post_id)
         
 #Like and unlike view
 class LikeToggleView(generics.GenericAPIView):
@@ -96,6 +109,14 @@ class ProfileListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Profile.objects.all()
     
+#post detail view
+class PostDetailView(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+            
 #profile-specific post
 class UserPostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer

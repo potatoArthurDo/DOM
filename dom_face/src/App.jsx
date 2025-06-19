@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Search from "./pages/Search";
 import Follows from "./pages/Follows";
+import DomDetail from "./pages/DomDetail";
 function Logout() {
   localStorage.clear();
   return <Navigate to="/login" />;
@@ -37,6 +38,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/post/:id"
+          element={
+            <ProtectedRoute>
+              <DomDetail />
             </ProtectedRoute>
           }
         />
