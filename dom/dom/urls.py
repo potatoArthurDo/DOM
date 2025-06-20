@@ -4,7 +4,7 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
-from dom_app.views import CreateUserView
+from profile_app.views import CreateUserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,5 +14,6 @@ urlpatterns = [
     path("dom_app-auth/", include("rest_framework.urls")),
     
     path('', include('dom_app.urls')),
+    path('', include('profile_app.urls')),
     
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )
