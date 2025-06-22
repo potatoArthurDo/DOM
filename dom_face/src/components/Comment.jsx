@@ -5,7 +5,7 @@ const Comment = ({ comment }) => {
   return (
     <div className="relative w-[95%] lg:w-[50%] h-auto custom-gradient border-2 border-blue-100 flex flex-col justify-center items-center">
       <div className="w-full h-auto relative flex flex-row justify-between items-center mx-6 my-2 p-3">
-        <div className="m-2 relative w-[10%] h-[4rem] absolute top-0 left-0">
+        <div className="m-2 relative w-[10%] h-[4rem] top-0 left-0">
           <Link to={`/profile/${comment.profile_id}`}>
             <img
               src={comment.avatar}

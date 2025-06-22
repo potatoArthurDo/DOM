@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Menu from "../components/Menu";
 import Comment from "../components/Comment";
 import Domed from "../components/Domed";
+import PostComment from "../components/PostComment";
 const DomDetail = () => {
   const { id } = useParams();
 
@@ -40,13 +41,14 @@ const DomDetail = () => {
     api
       .get(`posts/${id}/comments/`)
       .then((res) => {
-        setComments(res.data, ...comments);
+        setComments(res.data);
         // console.log("Here are comments");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   useEffect(() => {
     if (id) {
       getPost(id);
@@ -65,11 +67,11 @@ const DomDetail = () => {
           ) : (
             <p className="text-white">Loading...</p>
           )}
+          <PostComment post = {post} commentposted={() => getComments(id)} />
 
           {comments.map((comment) => (
-            <Comment comment= {comment} />
+            <Comment comment={comment} />
           ))}
-          
         </div>
       </div>
     </div>
