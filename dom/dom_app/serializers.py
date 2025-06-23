@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import  Post, Comment
+from .models import  Post, Comment, CommentLike
 from profile_app.models import Profile
 from profile_app.serializers import UserSerializer, ProfileSerializer
         
@@ -33,8 +33,30 @@ class CommentSerializers(serializers.ModelSerializer):
     avatar = serializers.ImageField(source='profile.avatar', read_only=True)
     profile_id = serializers.CharField(source = 'profile.id', read_only = True)
     
+    replies = serializers.SerializerMethodField()
+    likes_count = serializers.SerializerMethodField()
+    is_liked = serializers.SerializerMethodField()
+    
     class Meta:
         model = Comment
-        fields = ['id', 'profile_id','post', 'profile','username', 'avatar', 'content', 'created_at']
+        fields = ['id', 'profile_id','post', 'profile','username', 'avatar', 'content', 'created_at', 'replies', 'likes_count', 'is_liked']
         #so they won't expect these from client
         read_only_fields = ['id', 'post', 'profile', 'created_at']
+        
+    def get_replies(self, obj):
+        return CommentLikeSerializers(obj.replies.all(), many = True, context=self.context).data
+    
+    def get_likes_count(self, obj):
+        return obj.like_comment.count()
+    
+    def get_is_liked(self, obj):
+        user = self.context.get('request').user
+        if user.is_authenticated:
+            profile = user.profile
+            return obj.like_comment.filter(profile = profile).exists()
+        return False
+
+class CommentLikeSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = CommentLike
+        fields = ['id', 'profile', 'created_at']

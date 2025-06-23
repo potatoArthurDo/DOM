@@ -10,11 +10,20 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
+    #replies
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies' )
+    
     def __str__(self):
         return f"{self.profile.username} on {self.post.user.username}: {self.content[:20]}..."
     
+#seperate comment like model too keep track who likes it
+class CommentLike(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="like_comment")
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
     
-
+    class Meta:
+        unique_together = ['comment', 'profile']
 
 
 class Post(models.Model):

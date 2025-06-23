@@ -70,7 +70,7 @@ const DomDetail = () => {
           <PostComment post = {post} commentposted={() => getComments(id)} />
 
           {comments.map((comment) => (
-            <Comment comment={comment} />
+            <Comment comment={comment} onLikeToggle={() => getComments(id)} />
           ))}
         </div>
       </div>

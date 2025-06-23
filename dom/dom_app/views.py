@@ -3,13 +3,27 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Profile, Post, Comment
+from .models import Profile, Post, Comment, CommentLike
 from .serializers import UserSerializer, ProfileSerializer, PostSerializer, CommentSerializers
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
 
 
-
+class CommentLikeToggleView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request, comment_id):
+        profile = request.user.profile
+        comment = Comment.objects.get(id = comment_id)
+        
+        like, created = CommentLike.objects.get_or_create(comment=comment, profile=profile)
+        if not created:
+            like.delete()
+            return Response({'liked': False}, status=status.HTTP_200_OK)
+        return Response({'liked': True}, status=status.HTTP_200_OK)
+        
+        
+        
 #comment view
 class CommentListCreateView(generics.ListCreateAPIView):
     serializer_class = CommentSerializers
@@ -24,7 +38,7 @@ class CommentListCreateView(generics.ListCreateAPIView):
         profile = self.request.user.profile
         serializer.save(profile=profile, post_id = post_id)
         
-#Like and unlike view
+#Like and unlike post view
 class LikeToggleView(generics.GenericAPIView):
     permission_classes = {IsAuthenticated}
     serializer_class = PostSerializer
@@ -45,10 +59,6 @@ class LikeToggleView(generics.GenericAPIView):
             'liked': liked,
             'total_likes': post.total_likes(),
         }, status=status.HTTP_200_OK)
-        
-
-        
-
     
 #post detail view
 class PostDetailView(generics.RetrieveAPIView):
