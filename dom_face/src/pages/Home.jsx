@@ -3,6 +3,7 @@ import api from "../api";
 import Domed from "../components/Domed";
 import Menu from "../components/Menu";
 import Post from "../components/Post";
+import { HolidayBanner } from "../components/HolidayBanner";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -65,7 +66,7 @@ function Home() {
   return (
     <div className="custom-dark-gradient relative min-h-screen w-screen overflow-x-hidden flex flex-row items-center justify-center ">
       <Menu />
-      <div className=" w-[75vw]  lg:w-[85vw]">
+      <div className=" w-[75vw] md:ml-50  lg:ml-0 lg:w-[70vw]">
         <div className="custom-dark-gradient min-h-[100vh] p-4 flex flex-col items-center justify-start ml-2">
             <h1 className="text-white">Home</h1>
           <Post currentUser = {currentUser}
@@ -78,6 +79,7 @@ function Home() {
           ))}
         </div>
       </div>
+      <HolidayBanner />
     </div>
   );
 }

@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'dom_app',
     'profile_app',
+    'holiday',
     "corsheaders"
 ]
 
