@@ -97,7 +97,7 @@ class SearchUserView(generics.ListAPIView):
 
     def get_queryset(self):
         query = self.request.GET.get('q', '')
-        return Profile.objects.filter(username__icontains=query)
+        return Profile.objects.filter(username__icontains=query).order_by('id')
         
 #create user
 class CreateUserView(generics.CreateAPIView):

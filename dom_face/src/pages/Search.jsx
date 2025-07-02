@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import Menu from "../components/Menu";
 import api from "../api";
 import ProfileCard from "../components/ProfileCard";
+import Domed from "../components/Domed";
+
 const Search = () => {
   const [profiles, SetProfiles] = useState([]);
   const [search, setSearch] = useState("");
+  const [searchPost, setSearchPost] = useState([]);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
@@ -14,6 +17,7 @@ const Search = () => {
       }
 
       getProfiles(search);
+      getSearchPosts(search);
     }, 300); // debounce for 300ms
 
     return () => clearTimeout(delayDebounce);
@@ -24,6 +28,17 @@ const Search = () => {
       .get(`search-users/?q=${search}`)
       .then((res) => {
         SetProfiles(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getSearchPosts = () => {
+    api
+      .get(`posts/search/?q=${search}`)
+      .then((res) => {
+        setSearchPost(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -48,11 +63,22 @@ const Search = () => {
             </button>
           </div>
 
-          <div className="w-[95%] lg:w-[50%] h-full flex flex-col justify-center items-center">
+          <div className="w-[50%] lg:w-[100%] h-full flex flex-col justify-center items-center">
             {profiles.map((profile) => (
               <ProfileCard profile={profile} />
             ))}
           </div>
+            <hr class="my-4 border w-[50%] border-blue-100" />
+
+           <div className="w-[50%] lg:w-[100%] h-full flex flex-col justify-center items-center">
+            {searchPost.map((post) => (
+                <Domed
+                    post={post}
+                    deletePost={null}
+                />
+            ))}
+          </div>
+
         </div>
       </div>
     </div>

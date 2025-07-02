@@ -8,7 +8,15 @@ from .serializers import UserSerializer, ProfileSerializer, PostSerializer, Comm
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
 
-
+class SearchPostView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        return Post.objects.filter(body__icontains = query).order_by('-created_at')
+    
 class CommentLikeToggleView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     

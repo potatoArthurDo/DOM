@@ -35,7 +35,7 @@ const Domed = ({ post, deletePost }) => {
   };
 
   return (
-    <div className="relative w-[95%] lg:w-[50%] h-auto custom-gradient border-2 border-blue-50 flex flex-col justify-center items-center">
+    <div className="relative w-[50%] lg:w-[50%] h-auto custom-gradient border-2 border-blue-50 flex flex-col justify-center items-center">
       <div className="w-full h-auto relative flex flex-row justify-between items-center mx-6 my-2">
         <div className="absolute left-0 top-0 w-[10%] h-[7rem] ml-7 m-2">
           <Link to={`/profile/${post.user.id}`}>

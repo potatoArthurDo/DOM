@@ -34,7 +34,7 @@ const Post = ({ currentUser, createPost }) => {
           <img
             src={currentUser.avatar}
             alt="avatar"
-            className="rounded-full w-[5rem] h-[5rem]"
+            className="rounded-full w-[5rem] h-[5rem] object-cover"
           />
         </Link>
         <textarea
